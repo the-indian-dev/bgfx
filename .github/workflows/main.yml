@@ -42,10 +42,11 @@ jobs:
           sudo apt update
           sudo apt install -y build-essential libgl-dev
 
-      - name: Build
+      - name: Build (parallel)
         run: |
           cd bgfx
-          make -j$(nproc) linux-gcc-${{ matrix.config }}64
+          echo "Using $(nproc) cores"
+          make linux-gcc-${{ matrix.config }}64 -j$(nproc)
 
       - name: Verify
         run: |
